@@ -1,0 +1,28 @@
+# Python virtual environments
+venv/
+.venv/
+venv_broken/
+venv_old/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment variables
+.env
+
+# Dataset
+dataset/
+
+# Database
+database/*.db
+*.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# AI model files
+*.pt
+*.pth
+*.onnx
