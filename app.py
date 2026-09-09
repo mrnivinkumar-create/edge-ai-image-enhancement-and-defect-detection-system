@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import sqlite3
+import os
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -12,8 +13,14 @@ from flask import Flask, flash, redirect, render_template, request, url_for
 from werkzeug.utils import secure_filename
 
 BASE_DIR = Path(__file__).resolve().parent
-DATABASE_PATH = BASE_DIR / "database" / "database.db"
-UPLOAD_FOLDER = BASE_DIR / "static" / "uploads"
+
+# Vercel's filesystem is read-only except for /tmp
+if os.environ.get("VERCEL"):
+    DATABASE_PATH = Path("/tmp/edge_ai_database.db")
+    UPLOAD_FOLDER = Path("/tmp/edge_ai_uploads")
+else:
+    DATABASE_PATH = BASE_DIR / "database" / "database.db"
+    UPLOAD_FOLDER = BASE_DIR / "static" / "uploads"
 ALLOWED_EXTENSIONS = {"jpg", "jpeg", "png"}
 DEFECT_CLASSES = (
     "crazing", "inclusion", "patches", "pitted_surface", "rolled_in_scale", "scratches",
